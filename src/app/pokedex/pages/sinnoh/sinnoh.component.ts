@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Pokemon } from '../../interface/ResPokedex';
+import { PokemonService } from '../../service/pokemon.service';
 
 @Component({
   selector: 'app-sinnoh',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SinnohComponent implements OnInit {
 
-  constructor() { }
+  pokemon!: Pokemon[];
+
+  constructor(
+    private _pokemonService: PokemonService  ) { }
 
   ngOnInit(): void {
+    this.cargarPokedexSinnoh();
   }
 
+  cargarPokedexSinnoh(){
+    this._pokemonService.getPokedexSinnoh()
+      .subscribe(resp => {
+        this.pokemon = resp;
+      })
+  }
 }
